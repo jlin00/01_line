@@ -7,4 +7,71 @@
 
 //Insert your line algorithm here
 void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
+  if (x0 > x1){ //if points do not go from left to right
+    draw_line(x1, y1, x0, y0, s, c);
+  }
+  else {
+    int x = x0;
+    int y = y0;
+    int a = y1 - y0;
+    int b = x0 - x1;
+    int d;
+    if (b == 0){ //undefined slope or a single point
+      while (y <= y1){
+        plot(x, y, s, c);
+        y++;
+      }
+    }
+    else {
+      double slope = (double)(a) d/(-b);
+      if (slope >= 0 || slope < 1){ //octant I & V
+        d = 2*a + b;
+        while (x <= x1){
+          plot(x, y, s, c);
+          if (d > 0){
+            y++;
+            d += 2*b;
+          }
+          x++;
+          d += 2*a;
+        }
+      }
+      else if (slope >= 1){ //octant II & VI
+        d = a + 2*b;
+        while (y <= y1){
+          plot(x, y, s, c);
+          if (d < 0){
+            x++;
+            d += 2*a;
+          }
+          y++;
+          y += 2*b;
+        }
+      }
+      else if (slope <= -1){ //octant III & VII
+        d = a - 2*b;
+        while (y >= y1){
+          plot(x, y, s, c);
+          if (d < 0){
+            x++;
+            d += 2*a;
+          }
+          y--;
+          d -= 2*b;
+        }
+      }
+      else if (slope > -1 || slope < 0){ //octant III & VII
+        d = 2*a - b;
+        while (x >= x1){
+          plot(x, y, s, c);
+          if (d > 0){
+            y--;
+            d -= 2*b;
+          }
+          x++;
+          d += 2*a;
+        }
+      }
+    }
+  }
 }
