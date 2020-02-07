@@ -23,7 +23,7 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
       }
     }
     else {
-      double slope = (double)(a) d/(-b);
+      double slope = (double)(a) / (-b);
       if (slope >= 0 || slope < 1){ //octant I & V
         d = 2*a + b;
         while (x <= x1){
