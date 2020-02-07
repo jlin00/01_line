@@ -18,7 +18,7 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
     int d;
     if (b == 0){ //undefined slope or a single point
       while (y <= y1){
-        plot(x, y, s, c);
+        plot(s, c, x, y);
         y++;
       }
     }
@@ -27,7 +27,7 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
       if (slope >= 0 || slope < 1){ //octant I & V
         d = 2*a + b;
         while (x <= x1){
-          plot(x, y, s, c);
+          plot(s, c, x, y);
           if (d > 0){
             y++;
             d += 2*b;
@@ -39,7 +39,7 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
       else if (slope >= 1){ //octant II & VI
         d = a + 2*b;
         while (y <= y1){
-          plot(x, y, s, c);
+          plot(s, c, x, y);
           if (d < 0){
             x++;
             d += 2*a;
@@ -51,7 +51,7 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
       else if (slope <= -1){ //octant III & VII
         d = a - 2*b;
         while (y >= y1){
-          plot(x, y, s, c);
+          plot(s, c, x, y);
           if (d < 0){
             x++;
             d += 2*a;
@@ -63,7 +63,7 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
       else if (slope > -1 || slope < 0){ //octant III & VII
         d = 2*a - b;
         while (x >= x1){
-          plot(x, y, s, c);
+          plot(s, c, x, y);
           if (d > 0){
             y--;
             d -= 2*b;
