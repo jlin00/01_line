@@ -24,7 +24,19 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
     }
     else {
       double slope = (double)(a) / (-b);
-      if (slope >= 0 || slope < 1){ //octant I & V
+      if (slope > 1){ //octant II & VI
+        d = a + 2*b;
+        while (y <= y1){
+          plot(s, c, x, y);
+          if (d < 0){
+            x++;
+            d += 2*a;
+          }
+          y++;
+          d += 2*b;
+        }
+      }
+      else if (slope > 0){ //octant I & V
         d = 2*a + b;
         while (x <= x1){
           plot(s, c, x, y);
@@ -36,40 +48,28 @@ void draw_line(int x0, int y0, int x1, int y1, screen s, color c) {
           d += 2*a;
         }
       }
-      else if (slope >= 1){ //octant II & VI
-        d = a + 2*b;
-        while (y <= y1){
+      else if (slope > -1){ //octant IV & VIII
+        d = 2*a - b;
+        while (x <= x1){
           plot(s, c, x, y);
-          if (d < 0){
-            x++;
-            d += 2*a;
+          if (d > 0){
+            y--;
+            d += 2*b;
           }
-          y++;
-          y += 2*b;
+          x++;
+          d -= 2*a;
         }
       }
-      else if (slope <= -1){ //octant III & VII
+      else { //octant III & VII
         d = a - 2*b;
         while (y >= y1){
           plot(s, c, x, y);
           if (d < 0){
             x++;
-            d += 2*a;
+            d -= 2*a;
           }
           y--;
-          d -= 2*b;
-        }
-      }
-      else if (slope > -1 || slope < 0){ //octant III & VII
-        d = 2*a - b;
-        while (x >= x1){
-          plot(s, c, x, y);
-          if (d > 0){
-            y--;
-            d -= 2*b;
-          }
-          x++;
-          d += 2*a;
+          d += 2*b;
         }
       }
     }
